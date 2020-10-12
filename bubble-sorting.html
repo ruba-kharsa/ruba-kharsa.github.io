@@ -743,7 +743,7 @@ namespace SoloLearn {
                     $('#code').html($('#code').html().replace(/\b(int|String|System|range|void|bool|len)\b/gi, '<span class="builtInFunctions">$1</span>'))
                     $('#code').html($('#code').html().replace(/\b(false|true)\b/gi, '<span class="constant">$1</span>'))
                     $('#code').html($('#code').html().replace(/(&lt;iostream&gt;)/gi, '<span class="constant">$1</span>'))
-                    $('#code').html($('#code').html().replace(/(&lt;(?!iostream)|(?<!iostream)&gt;)/gi, '<span class="keyword">$1</span>'))
+                    //$('#code').html($('#code').html().replace(/(&lt;(?!iostream)|(?<!iostream)&gt;)/gi, '<span class="keyword">$1</span>'))
                     $('#code').html($('#code').html().replace(/(#include)/gi, '<span class="comment">$1</span>'))
                 } else {
                     $("#code").html($("#code").html() + index)
