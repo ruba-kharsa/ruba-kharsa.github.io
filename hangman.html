@@ -1,0 +1,976 @@
+<!-- Helllo guys 😊😊 hope you like my new code, please appreciate my drawings of the fall guys and the design since I am bad at drawing I am soo satisfied with the result 😂😂😂, please don't overuse the dectionary one so I won't hit my limit of the API 😂 enjoy the fruits and the animals categories because I enjoyed doing them the most 😎😎 and thanks all for any support 👌🏼-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman fall guys edition</title>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>
+    <link href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@0,400;1,200&display=swap" rel="stylesheet">
+    <style>
+        body {
+        background-color: pink;
+        background: linear-gradient(180deg, white 90%, pink 90%);
+        min-height: 100vh;
+        padding: 0;
+        margin: 0;
+        font-family: 'Grandstander', cursive;
+        font-size: 2em;
+        color: #da1c5c
+    }
+    
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+    
+    .container-class {
+        width: 1000;
+        height: 1000;
+        background-color: #da1c5c;
+    }
+    
+    .pageloader {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background-color: white;
+        opacity: 1;
+    }
+    
+    #loader-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%)
+    }
+    
+    .swal2-popup .swal2-styled:focus {
+        box-shadow: none !important;
+    }
+    
+    #game {
+        display: none;
+        background: linear-gradient(180deg, pink 7%, white 7%, pink 93%);
+    }
+    
+    .jumbotron {
+        background-color: transparent;
+        min-height: 100vh;
+    }
+    
+    .cat-label {
+        width: 100%;
+        height: 100%
+    }
+    
+    #back:focus {
+        box-shadow: none;
+    }
+    
+    #back:hover {
+        color: #da1c5c
+    }
+    
+    .hint {
+        font-size: 0.5em;
+        color: black;
+    }
+    
+    #hint:hover {
+        color: #da1c5c
+    }
+    
+    #hint {
+        cursor: pointer;
+    }
+    
+    #hints {
+        color: #da1c5c;
+    }
+    
+    .hint-text {
+        display: none;
+        font-size: 0.4em;
+        color: black;
+        font-weight: 100;
+        padding-top: 3px;
+        vertical-align: text-bottom;
+        word-break: break-;
+    }
+    
+    .img-json {
+        border: 3px #da1c5c solid;
+        border-radius: 15px;
+    }
+    
+    #fall_guy,
+    #gallow,
+    #chair,
+    #rope,
+    .eyes {
+        position: relative;
+        transform-origin: center;
+        transform-box: fill-box;
+    }
+    
+    #point {
+        color: #da1c5c;
+    }
+    
+    #horizontal-stand,
+    #vertical-stand,
+    #rope1,
+    #rope2,
+    #rope3,
+    #rope4,
+    #support {
+        display: none;
+    }
+    
+    .imgCat {
+        background-color: whitesmoke;
+        opacity: 0.9;
+        max-width: 150px
+    }
+    
+    .imgCat:hover {
+        cursor: pointer;
+    }
+    
+    .categories {
+        font-size: 0.6em;
+    }
+    
+    .pointer {
+        cursor: pointer;
+    }
+    
+    .pointer:nth-child(2n+0) {
+        color: #61bfec;
+    }
+    
+    .pointer:nth-child(4n+0) {
+        color: #ce82b7;
+    }
+    
+    .pointer:nth-child(5n+0) {
+        color: #FFC866
+    }
+    
+    .pointer:nth-child(6n+0) {
+        color: #da1c5c;
+    }
+    
+    .letterChosen {
+        color: #999;
+        cursor: default;
+        position: relative;
+    }
+    
+    .letterChosen:before {
+        content: '';
+        height: 25px;
+        width: 3px;
+        border-radius: 50%;
+        background-color: black;
+        position: absolute;
+        top: 22%;
+        left: 50%;
+        font-size: 1em;
+        opacity: 0.3;
+        transform: translate(-50%, -20%) rotate(45deg);
+    }
+    
+    #letter-guessed input {
+        width: 45px;
+        text-align: center;
+        border: none;
+        border-bottom: 1px black solid;
+        padding: 0
+    }
+    
+    #back {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    
+    #letter-guessed input:focus {
+        box-shadow: none;
+    }
+    
+    #letter-guessed input:disabled {
+        background-color: transparent;
+        color: black;
+    }
+    
+    #loader {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%)
+    }
+    
+    .cls-1 {
+        fill: #fee04b;
+    }
+    
+    .cls-2 {
+        fill: #fde9a8;
+    }
+    
+    .cls-3 {
+        fill: #ee3484;
+    }
+    
+    .cls-4 {
+        fill: #da1c5c;
+    }
+    
+    .cls-5 {
+        fill: #e9c6de;
+    }
+    
+    .cls-6 {
+        fill: #0b1217;
+    }
+    
+    .cls-7 {
+        fill: #ce82b7;
+    }
+    
+    .cls-8 {
+        fill: #914390;
+    }
+    
+    .cls-9 {
+        fill: #93468d;
+    }
+    
+    .lds-ellipsis {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+    }
+    
+    .lds-ellipsis div {
+        position: absolute;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        animation-timing-function: cubic-bezier(0, 1, 1, 0);
+    }
+    
+    .lds-ellipsis div:nth-child(1) {
+        left: 8px;
+        background-color: #da1c5c;
+        animation: lds-ellipsis1 0.6s infinite;
+    }
+    
+    .lds-ellipsis div:nth-child(2) {
+        left: 8px;
+        background-color: #fee04b;
+        animation: lds-ellipsis2 0.6s infinite;
+    }
+    
+    .lds-ellipsis div:nth-child(3) {
+        left: 32px;
+        background-color: #93468d;
+        animation: lds-ellipsis2 0.6s infinite;
+    }
+    
+    .lds-ellipsis div:nth-child(4) {
+        left: 56px;
+        background-color: #61bfec;
+        animation: lds-ellipsis3 0.6s infinite;
+    }
+    
+    @keyframes lds-ellipsis1 {
+        0% {
+            transform: scale(0);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+    
+    @keyframes lds-ellipsis3 {
+        0% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(0);
+        }
+    }
+    
+    @keyframes lds-ellipsis2 {
+        0% {
+            transform: translate(0, 0);
+        }
+        100% {
+            transform: translate(24px, 0);
+        }
+    }
+    
+    @media screen and (max-width: 767px) and (orientation:portrait) {
+        .title {
+            font-size: 0.6em;
+        }
+        .img-json {
+            width: 200px;
+        }
+        #hangman {
+            min-width: 220;
+        }
+        #letter-guessed input {
+            width: 20px;
+        }
+    }
+    
+    @media screen and (max-width: 767px) and (orientation: landscape) {
+        .title {
+            font-size: 0.6em;
+        }
+        .img-json {
+            width: 220px;
+        }
+        #hangman {
+            width: 250px;
+        }
+        #letter-guessed input {
+            width: 40px;
+        }
+    }
+    /*small*/
+    
+    @media screen and (min-width: 768px) {
+        #hangman {
+            width: 300px;
+        }
+        .img-json {
+            width: 250px;
+        }
+        .title {
+            font-size: 0.8em;
+        }
+        .letterChosen:before {
+            height: 35px
+        }
+        #letter-guessed input {
+            width: 40px;
+        }
+    }
+    /* md */
+    
+    @media screen and (min-width: 992px) {
+        .title {
+            font-size: 0.9em;
+        }
+        .img-json {
+            width: 270px;
+        }
+        #hangman {
+            width: 400px;
+        }
+        .letterChosen:before {
+            height: 40px
+        }
+        #letter-guessed input {
+            width: 45px;
+        }
+    }
+    /* lg */
+    
+    @media screen and (min-width: 1200px) {
+        .title {
+            font-size: 1em;
+        }
+        .img-json {
+            width: 300px;
+        }
+        #hangman {
+            width: 400px;
+        }
+        .letterChosen:before {
+            height: 40px
+        }
+        #letter-guessed input {
+            width: 50px;
+        }
+        #letter-guessed input {
+            width: 45px;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div class="pageloader">
+        <div id='loader-container'>
+            <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+
+    </div>
+    <div id="game">
+        <div class='jumbotron d-flex align-items-center mx-0 my-0 px-1 px-md-4'>
+            <div class='container-fluid m-0 p-0'>
+                <button type="button" id='back' class="btn rounded-0  ml-2 mt-1  my-0 px-0">&lt;&lt;Back</button>
+                <div class='row mx-0 my-3 my-md-0'>
+                </div>
+                <div class="row mx-0">
+                    <div class=' col-6 my-auto py-0'>
+                        <div class='row mx-0'>
+                            <p class="hint my-0 d-block p-0">Points: <span id='point'>0</span></p>
+                        </div>
+                        <div class='row mx-0'>
+
+                            <p class="hint my-0 p-0" style='float:right; position: relative;'>Hints: <span id='hints'>0</span></p>
+                        </div>
+
+
+                        <div class="row my-4 mx-0">
+                            <p id='hint' class="hint mr-2 my-2 d-inline p-0">Hint:</p>
+                            <p class='hint-text my-2'></p>
+
+                        </div>
+
+                        <div id='letters' class='row justify-content-center py-0 mt-3 mt-md-5'>
+
+                        </div>
+                    </div>
+                    <div id='svg-container' class='col-6 my-auto p-0'>
+                    </div>
+<div id='letter-guessed' class='row justify-content-center my-0 mx-1 my-md-3'>
+                        </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="hello">
+        <div class='container-fluid mx-0 px-0 '>
+            <div class="row mx-0 mb-3">
+                <div class="col-2 col-md-3 my-2">
+                    <img class='logo img-fluid my-0 p-0 ' style='min-width:100px; width:170px' src='https://dl.dropboxusercontent.com/s/956uerj8wthad3e/logo.svg?row=1'>
+                </div>
+                <div class='col-8 col-md-6 my-md-auto py-3 ml-4 mx-md-0'>
+                    <p class='text-center mx-2 mx-md-0 title my-2 my-lg-5  '> Hello There <br> please choose a category</p>
+                </div>
+                <div class="col-2">
+                </div>
+            </div>
+
+            <div class='row mx-0 my-lg-2'>
+                <div class='col-12 my-auto '>
+                    <div class='row my-auto px-0 mx-0 categories '>
+                        <div class='col-6 col-md-3'>
+                            <input type="radio" style="display: none;" value="fruits" name='category ' id="fruits">
+                            <label class='cat-label ' for="fruits">   
+                            <img class='img-fluid d-block my-auto mx-auto shadow-sm rounded-circle imgCat ' src='https://dl.dropboxusercontent.com/s/zbg14s8y3coyhyg/fruits.svg?row=1'>
+                            <p class='title text-center my-3 '>fruits</p>
+                            </label>
+                        </div>
+                        <div class='col-6 col-md-3'>
+                            <input type="radio" style="display: none;" value="vegetables" name='category ' id="vegetables">
+                            <label class='cat-label ' for="vegetables">   
+                            <img class='img-fluid d-block my-auto mx-auto shadow-sm rounded-circle imgCat ' src='https://dl.dropboxusercontent.com/s/nq9bqvuv0qzkfj6/vegetables.svg?row=1'>
+                            <p class='title text-center my-3 '>vegetables</p>
+                            </label>
+                        </div>
+                        <div class='col-6 col-md-3'>
+                            <input type="radio" style="display: none;" value='animals' id='animals' name="category">
+                            <label class='cat-label ' for="animals">   
+                            <img class='img-fluid d-block my-auto mx-auto shadow-sm rounded-circle imgCat ' src='https://dl.dropboxusercontent.com/s/b39eep11k13xktc/animals.svg?row=1'>
+                            <p class='title text-center my-3 '>Animals</p>
+                            </label>
+                        </div>
+                        <div class='col-6 col-md-3'>
+                            <input type="radio" style="display: none;" value='english-dict' id='english-dict' name="category">
+                            <label class='cat-label ' for="english-dict">   
+                            <img class='img-fluid d-block my-auto mx-auto shadow-sm rounded-circle imgCat ' src='https://dl.dropboxusercontent.com/s/oo50t3famtzi4nq/dictionary.svg?row=1'>
+                            <p class='title text-center my-3 '>English Dictionary</p>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class='row mx-0 my-5'>
+
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js'></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js '></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js '></script>
+        <script>
+            var alphabatics = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '-']
+            var keys = Array(27).fill().map((_, idx) => 65 + idx)
+            var alphaKeys = Object.assign({}, ...keys.map((n, index) => ({
+                [n]: alphabatics[index]
+            })))
+            alphaKeys[173] = alphaKeys[91]
+            delete alphaKeys[91]
+            var word = 'apple'
+            var counter = 0;
+            var winCounter = 0;
+            var win = true;
+            var lose = false
+            var numHints = 30
+            var definition;
+            var hintBool = false
+            var wordIndex;
+            var json;
+            var level;
+            var value;
+            var hintCounter = numHints
+            var myImage, loseImage, winImage, myImage2
+            var hintUsed = false
+            var wordList = [];
+            
+            function getJsonFile(category) {
+                switch (category.val()) {
+                    case "fruits":
+                        level = 'easy'
+                        wordIndex = Math.floor(Math.random() * 30);
+                        while (wordList.includes(wordIndex) && wordList.length < 30) {
+                            wordIndex = Math.floor(Math.random() * 30);
+                        }
+                        if (wordList.length == 3) {
+                            swal({
+                                title: "Congrats",
+                                html: `Thanks for saving me!! <br> Your score is ${winCounter} <br><br> ${winImage}`,
+                                imageAlt: "You are a hero",
+                                showCancelButton: false,
+                                confirmButtonText: "Cool!!",
+                                animation: 'false',
+                                cancelButtonText: "No",
+                                confirmButtonColor: "#da1c5c",
+                            })
+                            winCounter = 0
+                            hintCounter = numHints
+                            wordList = []
+                            $('#hint').unbind('click').bind('click', hintClick)
+                        }
+                        json = "https://dl.dropboxusercontent.com/s/2tt2sq46vw7ddup/fruits.json?row=1"
+                        break;
+                    case "vegetables":
+                        level = 'hard'
+                        wordIndex = Math.floor(Math.random() * 120);
+                        json = 'https://dl.dropboxusercontent.com/s/2n2qg686jms3a0n/vegetables.json?row=1'
+                        break;
+                    case "animals":
+                        level = "easy"
+                        wordIndex = Math.floor(Math.random() * 110);
+                        json = "https://dl.dropboxusercontent.com/s/dn3xtir3xrgdvs3/animal.json?row=1"
+                        break;
+                    case 'english-dict':
+                        level = 'hard'
+                        json = 'https://api.wordnik.com/v4/words.json/randomWords?hasDictionaryDef=true&minCorpusCount=0&minLength=5&maxLength=15&limit=1&api_key=dludrypem6le85a9bnp58fkmr9ydmvqegftu2hkx8aka9zfhp'
+                        wordIndex = 0;
+                        break;
+                }
+                $.getJSON(json).done(function(data) {
+            
+                    word = data[wordIndex]['word']
+                    description = data[wordIndex]['description']
+                    if (description == null && level == 'easy') {
+                        description = `<img class='img-json img-fluid' src=${data[wordIndex]['img']}>`
+                    }
+            
+                    gameSetup(word, description);
+                }).fail(function() {
+                    word = 'Error'
+                    description = 'Seems their is an error in getting the json file please try again! :('
+                    gameSetup(word, description);
+                })
+            }
+            
+            function gameSetup(word, description = 'no hint for you') {
+            
+                $('#svg-container').html('<svg xmlns="http://www.w3.org/2000/svg" id="hangman" class="ml-auto  mx-md-auto d-block img-fluid" viewBox="0 0 638.24 794.73"><defs><style>.cls-1{fill:#fee04b;}.cls-2{fill:#fde9a8;}.cls-3{fill:#ee3484;}.cls-4{fill:#da1c5c;}.cls-5{fill:#e9c6de;}.cls-6{fill:#0b1217;}.cls-7{fill:#ce82b7;}.cls-8{fill:#914390;}.cls-9{fill:#93468d;}</style></defs><title>hangman</title><g id="hangman"><g id="chair"><path class="cls-1" d="M325.7,792.63H160.48c-7.7,0-13.94-27.63-13.94-61.7V603.48c0-34.06,6.19-61.69,13.94-61.69H325.69c7.71,0,13.94,27.61,13.94,61.69V730.93C339.63,765,333.4,792.63,325.7,792.63Z"/><polygon class="cls-2" points="175.93 542.9 207.84 542.9 146.54 643.88 146.54 618.22 175.93 542.9"/><polygon class="cls-2" points="338.88 584.42 300.65 584.42 300.65 602.18 339.63 593.39 338.88 584.42"/><polygon class="cls-2" points="339.63 631.05 160.48 793.74 192.26 793.74 339.63 659.92 339.63 631.05"/><rect class="cls-2" x="146.54" y="668.32" width="34.22" height="23.68"/><polygon class="cls-2" points="219.18 621.42 239.09 637.46 229.91 655.11 207.84 631.05 219.18 621.42"/><polygon class="cls-2" points="267.35 608.6 284.69 631.05 269.24 643.88 256.21 621.42 267.35 608.6"/><polygon class="cls-2" points="300.65 719.26 334.27 780.66 325.69 793.74 284.69 732.09 300.65 719.26"/></g><g id="fall_guy" data-name="fall guy"><path xmlns="http://www.w3.org/2000/svg" d="M151.52,420c-27.23-18-31.15-52.28-33.4-71.91-1-8.91-1.14-17.2,4.36-22,3.38-3,10.91-6.52,14.6-4.52,5.64,3.05,12.84,10.73,11,17.52-1.52,5.52-10.16,13-8.24,15.36,3.71,4.42,6.42,3.9,14.72,10.16,12.27,9.25,8.9,14.61,16.16,16,6.89,1.33,17.39-1.14,19.43-11.57.56-2.87.82-6,2.14-15.15.33-2.28.81-4.93,1.58-8.13A104.1,104.1,0,0,1,199.18,330c2.58-6.17,7-16.49,17.61-24,7.39-5.27,14.7-7,21.35-8.54a76.73,76.73,0,0,1,26.16-1.6c5.72.66,12.23,1.42,19.74,5.33a48.92,48.92,0,0,1,15,12.28,61.17,61.17,0,0,1,13.34,27.75c3.15,16.64,2.67,20.29,1.6,31-.75,7.57,6.71,5.87,15.48,17.62,2,2.73,4,5.66,10.14,16.54,8.28,14.71,12.43,22.06,15,27.76,1.93,4.36,5.2,15,11.74,36.29a152.83,152.83,0,0,1,5.34,22.95c.62,4.14,2,17.08-1.78,18.51-2,.75-4.07-.74-5.16.17-.41.35.47,1.25-.12,1.86-1,1-1.17,1.72-3.37,2.45s-3.94-2.27-5.05-1.64c-1.86,1.07-1.93,3.24-3.91,4.81-2.7,2.12-10.75-.06-12.64-8-1-4.43,1.06-8.12-.53-9.07-2-1.2-5.56,4.59-10.14,3.73-2.91-.54-5.27-3.57-5.87-6.4-1-4.65,3.08-7.24,4.8-12.28,3.67-10.75-5.92-25.27-9.61-24.55-3.06.6,1,11.12-4.8,24-8.43,18.9-32,29.89-32,29.89a26.93,26.93,0,0,0,.53,8.54c1.28,5.64,3.69,7.49,4.27,12.27,0,.27.65,5.86-1.6,9.61-6.33,10.53-35.15,6.48-37.36-1.6-.81-2.95,2.53-4.21,5.33-14.71.78-2.91,2.85-11.7,2.14-8.77.59-1.28,1.65-4.05.53-6.41-2.4-5.07-13.29,2-16,5.93-1.07,1.57-.42,3.08,0,6.94.14,1.31,1.21,11.55-1.07,16-5,9.87-34.37,7.21-35.76,1.07-.22-1-1.39-1.55,6.18-11.56,1.18-1.56,2.89-5.16,6.81-10,2.69-3.3,2.29-12,2-12.69-1.47-3.21-10.84-8-13.14-8.2-16.3-11.64-14-15.55-16.09-29.16-2.75-18,3-24.06-1.73-35.23C181.76,427.54,168.61,431.3,151.52,420Z" style="display:none" class="win cls-3"/><path class="cls-3 normal" d="M191.59,369c2.66-16,1.81-21.6,9.07-39,2.58-6.17,7-16.49,17.61-24,7.39-5.27,14.7-7,21.35-8.54a76.73,76.73,0,0,1,26.16-1.6c5.72.66,12.23,1.42,19.74,5.33a48.92,48.92,0,0,1,15,12.28,61.17,61.17,0,0,1,13.34,27.75c3.15,16.64,2.67,20.29,1.6,31-.75,7.57,6.71,5.87,15.48,17.62,2,2.73,4,5.66,10.14,16.54,8.28,14.71,12.43,22.06,15,27.76,1.93,4.36,5.2,15,11.74,36.29a152.83,152.83,0,0,1,5.34,22.95c.62,4.14,2,17.08-1.78,18.51-2,.75-4.07-.74-5.16.17-.41.35.47,1.25-.12,1.86-1,1-1.17,1.72-3.37,2.45s-3.94-2.27-5.05-1.64c-1.86,1.07-1.93,3.24-3.91,4.81-2.7,2.12-10.75-.06-12.64-8-1-4.43,1.06-8.12-.53-9.07-2-1.2-5.56,4.59-10.14,3.73-2.91-.54-5.27-3.57-5.87-6.4-1-4.65,3.08-7.24,4.8-12.28,3.67-10.75-5.92-25.27-9.61-24.55-3.06.6,1,11.12-4.8,24-8.43,18.9-32,29.89-32,29.89a26.93,26.93,0,0,0,.53,8.54c1.28,5.64,3.69,7.49,4.27,12.27,0,.27.65,5.86-1.6,9.61-6.33,10.53-35.15,6.48-37.36-1.6-.81-2.95,2.53-4.21,5.33-14.71.78-2.91,2.85-11.7,2.14-8.77.59-1.28,1.65-4.05.53-6.41-2.4-5.07-13.29,2-16,5.93-1.07,1.57-.42,3.08,0,6.94.14,1.31,1.21,11.55-1.07,16-5,9.87-34.37,7.21-35.76,1.07-.22-1-1.39-1.55,6.18-11.56,1.18-1.56,2.89-5.16,6.81-10,2.69-3.3,2.29-12,2-12.69-1.47-3.21-7.84-3-10.14-3.2-12.85-1.13-22.51-20.91-25.09-34.16-3.62-18.56,4.93-35.05,4.27-35.23s-1.64,22.73-15.48,31c-2.71,1.61-8.33,7.29-10.07,13-1.19,3.91,0,0-.07,5.65,0,2.34-4.22,2.54-6.41,2.13-4.59-.84-6.86-6.72-7.47-6.4-.81.42,5.61,9.67,2.67,14.41-2,3.17-8.15,4.37-11.21,2.14-4.21-3.08-2.3-12.53,3.2-31.5,12.48-43,18.72-64.44,32-80.06C183,380,189.9,379.13,191.59,369Z"/><path class="cls-4" d="M208,541.84c-2.06.32-4.3,2.24-4.16,3.9.35,4.13,15.4,8.75,27.68,4.28,4.77-1.74,8.39-4.58,8.08-5.35-.61-1.51-15.5,7-24.4,1C212.83,544.06,210.86,541.39,208,541.84Z"/><path class="cls-4" d="M249.77,542.45c-.56.8-.43,4.11.47,5.38,6.81,9.61,30.42,2.15,30.35,1.6,0-.33-8.6,1.77-19-2C255.48,545.25,250.71,541.11,249.77,542.45Z"/><path xmlns="http://www.w3.org/2000/svg" d="M180.66,433c2.83,1.78,4.58-40.87,5.8-20.57-.08-1.35-.19-3.1-.61-3.15C184.31,409.11,179.38,432.17,180.66,433Z" style="display:none" class="win cls-4"/><path class="cls-4 normal" d="M183.14,454c1,.63,6.41-10.39,5.8-20.57-.08-1.35-.19-3.1-.61-3.15C186.79,430.11,181.86,453.17,183.14,454Z"/><path class="cls-4" d="M313.06,431.82c-1.39-.28-2.31,15.22,3.31,26.84.75,1.53,1.71,3.53,2.22,3.39C320.44,461.54,314.94,432.2,313.06,431.82Z"/><path class="cls-5" d="M247,320.62a38,38,0,0,1,25.09,6.4c14.48,9.85,16.36,25.92,16.54,27.76,1.67,16.62-8.29,27.88-10.14,29.89-13.54,14.73-32.7,12.54-34.69,12.27-2.71-.35-17.92-2.36-26.69-15.48-10-14.93-5.22-34.73,4.27-46.43C224.62,331.06,233.19,322.11,247,320.62Z"/><ellipse class="cls-6 eyes" cx="231.39" cy="370.56" rx="3.47" ry="8.81"/><ellipse cx="263.23" cy="370.34" rx="3.47" ry="8.81" class="eyes cls-6"/><path class="cls-5" d="M282.3,307.42c1.82-1.83,10.54.91,11.41,5.91.29,1.63-.19,3.9-1.65,4.66-2.5,1.3-7.37-2.05-9.21-6.09C282.41,310.93,281.28,308.45,282.3,307.42Z"/><circle cx="296.7" cy="320.1" r="2.16" class="cls-5"/></g><g id="rope"><g id="rope4"><path class="cls-7" d="M253,237.82c-46.42,0-84.05,69.72-84.05,114.7S206.66,434,253,434s84-36.46,84-81.43-37.58-114.7-84-114.7ZM191.69,354.76c0-15.6,8.09-41.87,26.09-65.39,15.57-20.31,30.4-27.68,36.57-27.68s21,7.37,36.56,27.68c18,23.52,26.38,49.79,26.09,65.39-.52,29-26.46,52.78-62.65,52.24C219.8,407,191.69,383.57,191.69,354.76Z"/><path class="cls-4" d="M197.68,415.53c-.94,1.74,5.78,13.47,10,15.74s15.76,10.54,33.8,12.19c35.22,3.23,68.57-17.95,67.61-20.51-.63-1.7-26.07,13-54.25,12.72C216.26,435.28,199.49,412.17,197.68,415.53Z"/></g><path id="rope1" class="cls-2" d="M270.86,207.14h-36V111.41h36Z"/><path id="rope3" class="cls-1" d="M217.09,264.79a18,18,0,1,1,0-36l36.15-18,36.15,18a18,18,0,0,1,0,36Z"/><path id="rope2" class="cls-1" d="M217.09,228.83a18,18,0,0,1,0-36h72.3a18,18,0,0,1,0,36Z"/></g><g id="gallow"><path id="support" class="cls-2" d="M528.83,272.86,384.19,128.17l29-29.06,144.7,144.7Z"/><g id="vertical-stand"><path class="cls-8" d="M505.16,37.85V794.73h82.6V37.85C587.76,17,577.16,0,564.09,0H528.83C515.76,0,505.16,17,505.16,37.85Z"/><rect class="cls-7" x="498.46" width="96.48" height="34.75" rx="9.13"/><rect class="cls-7" x="522.7" y="193.17" width="47.52" height="18.27" rx="9.13" transform="translate(-27.94 300.33) rotate(-30)"/><rect class="cls-7" x="537.32" y="294.66" width="18.27" height="47.52" rx="9.13"/><rect class="cls-7" x="520.42" y="425.42" width="47.52" height="18.27" rx="9.13" transform="translate(-126.04 245.42) rotate(-22.85)"/><rect class="cls-7" x="535.09" y="526.91" width="18.27" height="47.52" rx="9.13" transform="translate(-172.18 844.24) rotate(-67.62)"/><rect class="cls-7" x="526.1" y="657.63" width="47.52" height="18.27" rx="9.13" transform="translate(-243.79 324.66) rotate(-27.17)"/><rect class="cls-7" x="498.46" y="761.87" width="96.48" height="32.86" rx="9.13"/></g><g id="horizontal-stand"><path class="cls-9" d="M8.6,108.54c0,13.07,13.31,23.67,29.74,23.67h576.9c9.94,0,18-6.41,18-14.32v-54c0-7.89-8-14.32-18-14.32H38.39C22,49.57,8.65,60.16,8.65,73.24v35.25Z"/><rect class="cls-7" y="42.62" width="32.86" height="96.48" rx="9.13"/><rect class="cls-7" x="603.49" y="42.62" width="34.75" height="96.48" rx="9.13"/><polygon class="cls-7" points="88.78 49.57 211.54 132.16 240.44 132.16 108.22 49.57 88.78 49.57"/><polygon class="cls-7" points="370.72 132.16 440.86 49.57 414.94 49.57 336.33 132.16 370.72 132.16"/><polygon class="cls-7" points="245.01 90.86 296.66 111.41 310.65 99.11 258.81 73.32 245.01 90.86"/><polygon class="cls-7" points="498.46 90.86 544.19 111.41 549.84 99.11 498.46 73.32 498.46 90.86"/></g></g></g></svg>')
+                if (hintCounter == 0) {
+                    $('#hint').unbind('click')
+                }
+                $('#game').show()
+                $('#hello').hide()
+                $('#point').text(winCounter)
+                $('#hints').text(hintCounter)
+                hintUsed = false;
+                $('#hints').text(hintCounter)
+                hintBool = false;
+                $('.hint-text').hide()
+                $('#hint').css('color', 'black')
+                $('#letters label').addClass('pointer').removeClass('letterChosen')
+                $('#letters input[type=radio]').prop('disabled', false)
+                counter = 0;
+                $("#letter-guessed").empty()
+            
+                $('.hint-text').html(description)
+                $('#talk').empty()
+                wordList.push(wordIndex)
+                letterList = word.toUpperCase().split('')
+                for (var i = 0; i < letterList.length; i++) {
+                    $('#letter-guessed').append(`<input type="text" disabled id=${i} class="title form-control mx-2 rounded-0" maxlength='1'>`)
+                }
+                $(document).unbind('keydown')
+                $(document).keydown(function(e) {
+                    var keyPressed = e.which
+                    if ($(`#${alphaKeys[keyPressed]}`).is(':enabled')) {
+                        $(`#${alphaKeys[keyPressed]}`).prop('checked', true).change()
+                    }
+                });
+            
+            }
+            
+            function getAllIndexes(arr, val) {
+                var indexes = [],
+                    i;
+                for (i = 0; i < arr.length; i++)
+                    if (arr[i] === val)
+                        indexes.push(i);
+                return indexes;
+            }
+            
+            function jumpAnimation() {
+                anime({
+                    targets: '.eyes',
+                    duration: 50,
+                    scaleY: 0.1,
+                    easing: 'easeInOutBounce',
+                    direction: 'alternate',
+                    loop: 4,
+                })
+                anime({
+                    targets: '#fall_guy',
+                    duration: 250,
+                    translateY: -40,
+                    easing: 'easeOutBounce',
+                    direction: 'alternate',
+                    loop: 6,
+                })
+            
+            }
+            
+            function winAnimation() {
+                jumpAnimation()
+                $('.normal').hide()
+                $('.win').show()
+            }
+            
+            function chakeAnimation() {
+                anime({
+                    targets: '.eyes',
+                    duration: 100,
+                    scaleY: 1.2,
+                    scaleX: 1.4,
+                    easing: 'easeInOutQuad',
+                    direction: 'alternate',
+                    loop: 4,
+                })
+                anime.timeline({
+                        duration: 50,
+                    })
+                    .add({
+                        targets: '#fall_guy, #chair',
+                        easing: 'linear',
+                        rotateZ: -5,
+                    }).add({
+                        targets: '#fall_guy, #chair',
+                        easing: 'linear',
+                        rotateZ: -2,
+                    }).add({
+                        targets: '#fall_guy, #chair',
+                        easing: 'linear',
+                        rotateZ: 0,
+                    })
+                    .add({
+                        targets: '#fall_guy, #chair',
+                        easing: 'linear',
+                        rotateZ: 2,
+                    }).add({
+                        targets: '#fall_guy, #chair',
+                        easing: 'linear',
+                        rotateZ: 5,
+                    }).add({
+                        targets: '#fall_guy, #chair',
+                        easing: 'linear',
+                        rotateZ: 0,
+                    })
+            }
+            
+            function loseAnimation() {
+                anime({
+                    targets: '#chair',
+                    duration: 1000,
+                    easing: 'easeOutBounce',
+                    rotateZ: -90
+                }, '-=500')
+                anime.timeline({
+                        duration: 200,
+                    })
+                    .add({
+                        targets: '#fall_guy, #rope',
+                        rotateZ: -7,
+                    }).add({
+                        targets: '#fall_guy, #rope',
+                        easing: 'linear',
+                        rotateZ: 7,
+                    }).add({
+                        targets: '#fall_guy, #rope',
+                        easing: 'linear',
+                        rotateZ: -7,
+                    })
+                    .add({
+                        targets: '#fall_guy, #rope',
+                        easing: 'linear',
+                        rotateZ: 7,
+                    }).add({
+                        targets: '#fall_guy, #rope',
+                        easing: 'linear',
+                        rotateZ: 0,
+                    }).add({
+                        targets: '.eyes',
+                        easing: 'easeOutBounce',
+                        duration: 1000,
+                        scaleY: 0.2
+                    }, '-=1000').add({
+                        targets: '#fall_guy',
+                        easing: 'easeOutBounce',
+                        duration: 800,
+                        translateY: 5
+                    })
+            }
+            
+            function hintClick() {
+                if (level == 'easy') {
+                    if (hintUsed == false) {
+                        hintCounter--
+                        $('#hints').text(hintCounter)
+                        hintUsed = true;
+                    }
+            
+                    if (!hintBool) {
+                        $('.hint-text').css({ 'display': 'inline' }).show()
+                        $(this).css('color', '#da1c5c')
+                        hintBool = true
+                    } else {
+                        $('.hint-text').hide()
+                        $(this).css('color', 'black')
+                        hintBool = false
+                    }
+                } else {
+                    hintCounter--
+                    $('#hints').text(hintCounter)
+                    let j = 0
+                    $("#letter-guessed input").each(function() {
+                        if ($(this).val() == '') {
+                            $(`#${letterList[j]}`).change()
+                            return false
+                        }
+                        j++
+            
+                    })
+                }
+            }
+            
+            function chooseLetter() {
+                $('#point').text(winCounter)
+                $('#hints').text(hintCounter)
+                if (level != 'easy' && hintCounter == 0) {
+                    $('#hint').unbind('click')
+                }
+                win = true;
+                lose = false;
+                $(this).prop('disabled', true)
+                $('.eyes').css({ 'transform': 'scaleY(1)', 'transform': 'scaleX(1)' })
+                $('#fall_guy').css({ 'transform': 'translateX(0)', 'transform': 'rotateZ(0)' })
+                $('#letters label[for=' + this.id + ']').removeClass('pointer').addClass('letterChosen')
+                var letter_value = $(this).val()
+                if (letterList.includes(letter_value)) {
+                    var indexes = getAllIndexes(letterList, letter_value)
+                    for (let index of indexes) {
+                        if ($(`#${index}`).val() === '') {
+                            jumpAnimation()
+                            $(`#${index}`).val(letter_value)
+                        }
+                    }
+                } else {
+                    counter++
+                    switch (counter) {
+                        case 1:
+                            $('#vertical-stand').show();
+                            chakeAnimation()
+                            break;
+                        case 2:
+                            $('#support').show();
+                            chakeAnimation()
+                            break;
+                        case 3:
+                            $('#horizontal-stand').show();
+                            chakeAnimation()
+                            break;
+                        case 4:
+                            $('#rope1').show()
+                            chakeAnimation()
+                            break;
+                        case 5:
+                            $('#rope2').show()
+                            chakeAnimation()
+                            break;
+                        case 6:
+                            $('#rope3').show()
+                            chakeAnimation()
+                            break
+                        case 7:
+                            $('#rope4').show()
+                            loseAnimation()
+                            $('#letters input[type=radio]').prop('disabled', true)
+                            $('#hint').unbind('click').bind('click', hintClick)
+                            lose = true;
+                            var j = 0
+                            $("#letter-guessed input").each(function() {
+                                $(this).val(letterList[j])
+                                j++
+                            })
+                            setTimeout(function() {
+                                swal({
+                                    title: "Nooo!",
+                                    html: `Oooh look what have you done :(:( <br> Your score is ${winCounter} <br><br> ${loseImage}`,
+                                    showCancelButton: false,
+                                    confirmButtonText: "Sorry!!! I will try to improve my English",
+                                    animation: 'false',
+                                    cancelButtonText: "No",
+                                    confirmButtonColor: "#da1c5c",
+                                }).then(function(result) {
+                                    if (result.value) {
+                                        winCounter = 0
+                                        hintCounter = numHints
+                                        wordList = []
+                                        $('#hints').text(hintCounter)
+                                        $('#point').text(winCounter)
+                                        getJsonFile(value)
+                                    }
+                                })
+                            }, 3000)
+            
+                            //swal(`Oooh look what've you done :((((( <br> Your score is ${winCounter}`)
+            
+            
+            
+            
+            
+                            break
+                    }
+            
+                }
+            
+                $("#letter-guessed input").each(function() {
+                    var element = $(this)
+                    if (element.val() == "") {
+                        win = false;
+                    }
+                });
+            
+            
+                if (win && !lose) {
+                    winAnimation()
+                    winCounter++
+                    $('#point').text(winCounter)
+                    setTimeout(function() {
+                        getJsonFile(value)
+                    }, 1500)
+                }
+            }
+            
+            $(window).on("load", function(e) {
+                $(".pageloader").fadeOut("slow");
+                myImage = new Image()
+                myImage.src = 'https://dl.dropboxusercontent.com/s/nqljztreb6741wm/lose.svg?row=1'
+                loseImage = `<img width=180px src = ${myImage.src}>`
+                myImage2 = new Image()
+                myImage2.src = 'https://dl.dropboxusercontent.com/s/jiicyby2r6i7tha/thanks.svg?row=1'
+                winImage = `<img width=150px src = ${myImage2.src}>`
+            });
+            
+            $(document).ready(function() {
+            
+                alphabatics.forEach(function(letter) {
+                    $('#letters').append(`<input style="display: none" type="radio" name="letters" value=${letter} id=${letter}> \
+                        <label class='pointer' for=${letter}> \
+                            <p class="title my-0 mx-2 mx-sm-3">${letter}</p> \
+                        </label>`)
+            
+                })
+            
+                $('#hint').click(hintClick)
+            
+                $('#letters input[type=radio]').change(chooseLetter)
+            
+                $(".imgCat").mouseover(function() {
+                    $(this).css('cursor', 'pointer').removeClass('shadow-sm').addClass('shadow').css('opacity', '1');
+            
+                }).mouseout(function() {
+                    $(this).removeClass('shadow').addClass('shadow-sm').css('opacity', '0.9');;
+                });
+                $('.imgCat').click(function() {
+                    value = $(this).parent().siblings("input")
+                    getJsonFile(value)
+            
+                })
+            
+            
+            
+                $('#back').click(function() {
+                    swal({
+                        html: 'Are you sure you want to cancel you will lose your points??',
+                        imageWidth: 180,
+                        showCancelButton: true,
+                        confirmButtonText: "leave",
+                        animation: 'false',
+                        cancelButtonText: "stay",
+                        confirmButtonColor: "#da1c5c",
+                        cancelButtonColor: "#da1c5c",
+                    }).then(function(result) {
+                        if (result.value) {
+                            winCounter = 0
+                            hintCounter = numHints
+                            wordList = []
+                            $('#hints').text(hintCounter)
+                            $('#point').text(winCounter)
+                            $('#game').hide()
+                            $('#hello').show()
+                            $('#hint').unbind('click').bind('click', hintClick)
+                        } else {
+            
+                        }
+            
+            
+                    })
+                })
+            
+            });
+        </script>
+
+</body>
+
+</html>
