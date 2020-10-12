@@ -1016,7 +1016,7 @@ namespace SoloLearn {
         
         $(document).ready(function() {
         
-            $('#bubble').click(bubbles)
+            $('#bubble+label').click(bubbles)
             $('body').on('click', '.bubble', bubblePop)
             $("#python").prop('checked', 'true')
             typewriter()
