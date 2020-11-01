@@ -6,7 +6,20 @@
 	<body>
 		<script>
     
-			alert(window.innerWidth)
+			var mq = window.matchMedia("(max-width: 500px)");
+var mq2 = window.matchMedia("(max-width: 700px)");
+var mq3 = window.matchMedia("(max-width: 900px)");
+var mq4 = window.matchMedia("max-width: 1000");
+var mq5 = window.matchMedia("(max-width: 1200px)");
+var mq6 = window.matchMedia("(max-width: 1300px)");
+var mq7 = window.matchMedia("(max-width: 1800px)");
+			if (mq.matches) {
+  alert('smooool')
+} else if (mq2.matches) {
+   alert('second-smaaalll')
+} else if (mq3.matches) {
+  alert('third smool')
+} 
     </script>
 	</body>
 </html>
