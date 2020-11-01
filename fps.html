@@ -447,12 +447,12 @@ function drawImage(png) {
                 if (this.x !== this.baseX) {
 
                     let dx = this.x - this.baseX;
-                    this.x -= dx / 4
+                    this.x -= dx / 1.5
                 }
                 if (this.y !== this.baseY) {
 
                     let dy = this.y - this.baseY;
-                    this.y -= dy / 4
+                    this.y -= dy / 1.5
                 }
 
 
@@ -464,12 +464,12 @@ function drawImage(png) {
                 if (this.x !== this.baseX) {
 
                     let dx = this.x - this.baseX;
-                    this.x -= dx / 5
+                    this.x -= dx / 1.5
                 }
                 if (this.y !== this.baseY) {
 
                     let dy = this.y - this.baseY;
-                    this.y -= dy / 5
+                    this.y -= dy / 1.5
                 }
             } else if (this.speed > 1020 && this.speed < 1180) {
                 this.baseX = this.base3X
@@ -481,12 +481,12 @@ function drawImage(png) {
                 if (this.x !== this.baseX) {
 
                     let dx = this.x - this.baseX;
-                    this.x -= dx / 5
+                    this.x -= dx / 1.5
                 }
                 if (this.y !== this.baseY) {
 
                     let dy = this.y - this.baseY;
-                    this.y -= dy / 5
+                    this.y -= dy / 1.5
                 }
             } else if (this.speed > 1180 && this.speed < 1320) {
                 this.baseX = this.base5X
@@ -496,12 +496,12 @@ function drawImage(png) {
                 if (this.x !== this.baseX) {
 
                     let dx = this.x - this.baseX;
-                    this.x -= dx / 4
+                    this.x -= dx / 1.5
                 }
                 if (this.y !== this.baseY) {
 
                     let dy = this.y - this.baseY;
-                    this.y -= dy / 4
+                    this.y -= dy / 1.5
                 }
 
             } else if (this.speed > 1320 && this.speed < 1450) {
@@ -510,11 +510,11 @@ function drawImage(png) {
                 this.color = this.mulhamColor
                 if (this.x !== this.baseX) {
                     let dx = this.x - this.baseX;
-                    this.x -= dx / 5
+                    this.x -= dx / 1.5
                 }
                 if (this.y !== this.baseY) {
                     let dy = this.y - this.baseY;
-                    this.y -= dy / 5
+                    this.y -= dy / 1.5
                 }
 
 
@@ -525,12 +525,12 @@ function drawImage(png) {
                 if (this.x !== this.baseX) {
 
                     let dx = this.x - this.baseX;
-                    this.x -= dx / 10
+                    this.x -= dx / 1.5
                 }
                 if (this.y !== this.baseY) {
 
                     let dy = this.y - this.baseY;
-                    this.y -= dy / 10
+                    this.y -= dy / 1.5
                 }
             } else if (this.speed > 1500) {
                 this.radius = 1
@@ -547,8 +547,8 @@ function drawImage(png) {
                 if (force < 0) {
                     force = 0
                 }
-                let directionX = (forceDirectionX * force * this.density * 0.05);
-                let directionY = (forceDirectionY * force * this.density * 0.05);
+                let directionX = (forceDirectionX * force * this.density * 0.07);
+                let directionY = (forceDirectionY * force * this.density * 0.07);
                 if (distance < mouse.radius + this.radius && bool) {
                     //ctx.fillStyle = `rgba(${random(0,255)},${random(0,255)},${random(0,255)},${Math.random()})`
                     this.radius = 1.3
@@ -558,12 +558,12 @@ function drawImage(png) {
                     if (this.x !== this.baseX) {
 
                         let dx = this.x - this.baseX;
-                        this.x -= dx / 5
+                        this.x -= dx
                     }
                     if (this.y !== this.baseY) {
 
                         let dy = this.y - this.baseY;
-                        this.y -= dy / 5
+                        this.y -= dy
                     }
 
 
