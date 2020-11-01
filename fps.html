@@ -911,14 +911,15 @@ function drawImage(png) {
 
 
 function start_Audio() {
-    setTimeout(typeWriter, 1000);
+    typeWriter()
     sound = document.getElementById("my_audio")
+sound.play()
     var paragraph = document.querySelector(".music")
     var button = document.querySelector(".btn")
     var title = document.getElementById("text")
     var social = document.querySelector(".social-media")
 
-    sound.play()
+    
     paused = false
     paragraph.style.display = "none";
     //social.style.display = "block";
