@@ -232,7 +232,7 @@ path {
             </a>
         </div>
 
-        <audio id="my_audio">
+        <audio id="my_audio" preload="auto">
             <source src="https://dl.dropboxusercontent.com/s/p8ydgzfp1cam9cr/mulham.mp3?row=0" type="audio/mpeg">
               <P> your browser does not support audio</P>
           </audio>
@@ -318,7 +318,7 @@ var txt =
 تدفعنا الجراح إذ تَشفى 
 تبهجنا الخيام إذ تُطوى 
 يدًا بيد لنحقق أحلام من رحلوا `
-var time = 80
+var time = 60
 var cursor = "<span class='cursor cursorAnimation'>|</span>"
 
 function typeWriter() {
@@ -329,11 +329,11 @@ function typeWriter() {
         if (txt.charAt(index) == '\n') {
             setTimeout(typeWriter, 700);
             i = 0
-            time = 80
+            time = 60
             setTimeout(function() {
                 intro.innerHTML = intro.innerHTML.replace(/(<span class="cursor cursorAnimation">[|]<\/span>)/ig, "");
 
-            }, 900)
+            }, 800)
 
         } else {
             if (index != txt.length - 1) {
