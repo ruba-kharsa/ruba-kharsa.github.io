@@ -255,6 +255,9 @@ var size3 = 3,
     size4 = 4
 var bool
 var fps = 10
+var velocity = 5
+var velocity2 = 20
+var density1 = 0.05
 var mq = window.matchMedia("(max-width: 500px)");
 var mq2 = window.matchMedia("(max-width: 700px)");
 var mq3 = window.matchMedia("(max-width: 900px)");
@@ -264,6 +267,8 @@ var mq6 = window.matchMedia("(max-width: 1300px)");
 var mq7 = window.matchMedia("(max-width: 1800px)");
 var stop = false;
 var dark;
+var time = 95,
+    baseTime = 95
 var intro = document.getElementById("intro")
 var frameCount = 0;
 var sound = document.getElementById("my_audio")
@@ -276,37 +281,36 @@ if (mq.matches) {
     size3 = 2
     size4 = 3
     textsize = 13
-    dark = 25
     fps = 3
+    velocity = 1.5
+    velocity2 = 1.5
+    density1 = 0.07
     speedInc = 9
-	alert('small')
+    time = 60
+    baseTime = 60
 } else if (mq2.matches) {
     paddingX = 10
     textsize = 15
-    dark = 27
-	alert('second small')
+    fps = 3
+    velocity = 1.5
+    velocity2 = 1.5
+    density1 = 0.07
+    speedInc = 9
+    time = 60
+    baseTime = 60
 } else if (mq3.matches) {
     paddingX = 22
-    dark = 30
-	alert('third small')
 } else if (mq4.matches) {
     paddingX = 30
-    dark = 33
-	alert('fourth small')
 } else if (mq5.matches) {
     paddingX = 90
-    dark = 36
-	alert('fifth small')
 } else if (mq6.matches) {
     paddingX = 150
-    dark = 40
 } else if (mq7.matches) {
     paddingX = 170
-    dark = 43
 } else {
     size3 = 4
     size4 = 5
-    dark = 45
 }
 var index = 0;
 var txt =
@@ -318,7 +322,7 @@ var txt =
 تدفعنا الجراح إذ تَشفى 
 تبهجنا الخيام إذ تُطوى 
 يدًا بيد لنحقق أحلام من رحلوا `
-var time = 60
+
 var cursor = "<span class='cursor cursorAnimation'>|</span>"
 
 function typeWriter() {
@@ -329,11 +333,11 @@ function typeWriter() {
         if (txt.charAt(index) == '\n') {
             setTimeout(typeWriter, 700);
             i = 0
-            time = 60
+            time = baseTime
             setTimeout(function() {
                 intro.innerHTML = intro.innerHTML.replace(/(<span class="cursor cursorAnimation">[|]<\/span>)/ig, "");
 
-            }, 800)
+            }, 1000)
 
         } else {
             if (index != txt.length - 1) {
@@ -362,7 +366,7 @@ function random(min, max) {
 var mouse = {
     x: undefined,
     y: undefined,
-    radius: 50
+    radius: 100
 }
 
 window.addEventListener('mousemove', function(event) {
@@ -413,7 +417,6 @@ function drawImage(png) {
             this.baseRadius = radius
             this.startRadius = Math.random() * 1.5
             this.speed = 0
-            this.startColor = `hsl(${random(200,280)},${random(40,50)}%,${random(0,dark)}%)`
             this.baseColor = color
             this.xMulham = random(-width, width * 2);
             this.yMulham = random(-height, height * 2)
@@ -435,7 +438,7 @@ function drawImage(png) {
 
 
             if (this.speed < 820) {
-                this.color = `hsl(${random(200,280)},${random(40,50)}%,${random(0,dark)}%)`
+                this.color = `hsl(${random(200,280)},${random(40,50)}%,${random(0,35)}%)`
                 this.radius = this.startRadius
             }
             if (this.speed > 820 && this.speed < 910) {
@@ -447,12 +450,12 @@ function drawImage(png) {
                 if (this.x !== this.baseX) {
 
                     let dx = this.x - this.baseX;
-                    this.x -= dx / 1.5
+                    this.x -= dx / velocity
                 }
                 if (this.y !== this.baseY) {
 
                     let dy = this.y - this.baseY;
-                    this.y -= dy / 1.5
+                    this.y -= dy / velocity
                 }
 
 
@@ -464,12 +467,12 @@ function drawImage(png) {
                 if (this.x !== this.baseX) {
 
                     let dx = this.x - this.baseX;
-                    this.x -= dx / 1.5
+                    this.x -= dx / velocity
                 }
                 if (this.y !== this.baseY) {
 
                     let dy = this.y - this.baseY;
-                    this.y -= dy / 1.5
+                    this.y -= dy / velocity
                 }
             } else if (this.speed > 1020 && this.speed < 1180) {
                 this.baseX = this.base3X
@@ -481,12 +484,12 @@ function drawImage(png) {
                 if (this.x !== this.baseX) {
 
                     let dx = this.x - this.baseX;
-                    this.x -= dx / 1.5
+                    this.x -= dx / velocity
                 }
                 if (this.y !== this.baseY) {
 
                     let dy = this.y - this.baseY;
-                    this.y -= dy / 1.5
+                    this.y -= dy / velocity
                 }
             } else if (this.speed > 1180 && this.speed < 1320) {
                 this.baseX = this.base5X
@@ -496,12 +499,12 @@ function drawImage(png) {
                 if (this.x !== this.baseX) {
 
                     let dx = this.x - this.baseX;
-                    this.x -= dx / 1.5
+                    this.x -= dx / velocity
                 }
                 if (this.y !== this.baseY) {
 
                     let dy = this.y - this.baseY;
-                    this.y -= dy / 1.5
+                    this.y -= dy / velocity
                 }
 
             } else if (this.speed > 1320 && this.speed < 1450) {
@@ -510,11 +513,11 @@ function drawImage(png) {
                 this.color = this.mulhamColor
                 if (this.x !== this.baseX) {
                     let dx = this.x - this.baseX;
-                    this.x -= dx / 1.5
+                    this.x -= dx / velocity
                 }
                 if (this.y !== this.baseY) {
                     let dy = this.y - this.baseY;
-                    this.y -= dy / 1.5
+                    this.y -= dy / velocity
                 }
 
 
@@ -525,12 +528,12 @@ function drawImage(png) {
                 if (this.x !== this.baseX) {
 
                     let dx = this.x - this.baseX;
-                    this.x -= dx / 1.5
+                    this.x -= dx / velocity2
                 }
                 if (this.y !== this.baseY) {
 
                     let dy = this.y - this.baseY;
-                    this.y -= dy / 1.5
+                    this.y -= dy / velocity2
                 }
             } else if (this.speed > 1500) {
                 this.radius = 1
@@ -547,8 +550,8 @@ function drawImage(png) {
                 if (force < 0) {
                     force = 0
                 }
-                let directionX = (forceDirectionX * force * this.density * 0.07);
-                let directionY = (forceDirectionY * force * this.density * 0.07);
+                let directionX = (forceDirectionX * force * this.density * density1);
+                let directionY = (forceDirectionY * force * this.density * density1);
                 if (distance < mouse.radius + this.radius && bool) {
                     //ctx.fillStyle = `rgba(${random(0,255)},${random(0,255)},${random(0,255)},${Math.random()})`
                     this.radius = 1.3
@@ -558,12 +561,12 @@ function drawImage(png) {
                     if (this.x !== this.baseX) {
 
                         let dx = this.x - this.baseX;
-                        this.x -= dx
+                        this.x -= dx / velocity
                     }
                     if (this.y !== this.baseY) {
 
                         let dy = this.y - this.baseY;
-                        this.y -= dy
+                        this.y -= dy / velocity
                     }
 
 
@@ -776,12 +779,12 @@ function drawImage(png) {
             particles.forEach(particle => {
                 particle.update()
             });
-            if (speed > 820 && speed < 845) {
+            if (speed > 820 && speed < 840) {
                 intro.style.display = "none";
             }
-		if(speed == 837){
-			sound.currentTime = 30
-		}
+            if (speed == 837 && (sound.currentTime < 27.5 || sound.currentTime > 32.5)) {
+                sound.currentTime = 29.8
+            }
             if (speed > 840 && speed < 920) {
 
                 text = "...لون الحزن"
@@ -841,10 +844,12 @@ function drawImage(png) {
     }
     window.addEventListener('resize', function() {
 
+
         width = canvas.width = window.innerWidth
         height = canvas.height = window.innerHeight;
-
-
+        velocity = 5
+        velocity2 = 20
+        density1 = 0.05
         paddingX = 230
         fps = 10
         sound.currentTime = 0
@@ -852,12 +857,9 @@ function drawImage(png) {
         sound.play()
         intro.innerHTML = ""
         index = 0
-        time = 85
+        time = 90
+        baseTime = 90
         speedInc = 2.7
-        if (intro.style.display == "none") {
-            intro.style.display = "block"
-            typeWriter()
-        }
         size3 = 3
         size4 = 4
         text = ""
@@ -866,39 +868,41 @@ function drawImage(png) {
             size3 = 2
             size4 = 3
             textsize = 13
-            dark = 25
-            fps = 5
-            speedInc = 5.2
+            fps = 3
+            velocity = 1.5
+            velocity2 = 1.5
+            density1 = 0.07
+            speedInc = 9
+            time = 60
+            baseTime = 60
         } else if (mq2.matches) {
             paddingX = 10
             textsize = 15
-            dark = 27
-            fps = 5
-            speedInc = 5.2
+            fps = 3
+            velocity = 1.5
+            velocity2 = 1.5
+            density1 = 0.07
+            speedInc = 9
+            time = 60
+            baseTime = 60
         } else if (mq3.matches) {
             paddingX = 22
-            dark = 30
-            fps = 5
-            speedInc = 5.2
         } else if (mq4.matches) {
             paddingX = 30
-            dark = 33
-            
         } else if (mq5.matches) {
             paddingX = 90
-            dark = 36
         } else if (mq6.matches) {
             paddingX = 150
-            dark = 40
         } else if (mq7.matches) {
             paddingX = 170
-            dark = 43
         } else {
             size3 = 4
             size4 = 5
-            dark = 45
         }
-
+        if (intro.style.display == "none") {
+            intro.style.display = "block"
+            typeWriter()
+        }
         init(fps)
         animate()
 
@@ -914,15 +918,18 @@ function drawImage(png) {
 
 
 function start_Audio() {
-    typeWriter()
+    if (!mq.matches || !mq2.matches) {
+        setTimeout(typeWriter, 1000);
+    } else {
+        typeWriter()
+    }
     sound = document.getElementById("my_audio")
-sound.play()
     var paragraph = document.querySelector(".music")
     var button = document.querySelector(".btn")
     var title = document.getElementById("text")
     var social = document.querySelector(".social-media")
 
-    
+    sound.play()
     paused = false
     paragraph.style.display = "none";
     //social.style.display = "block";
@@ -975,7 +982,6 @@ document.addEventListener('visibilitychange', function() {
         }
     }
 }, false);
-	
 	</script>
 </body>
 
