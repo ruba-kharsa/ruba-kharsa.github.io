@@ -278,7 +278,7 @@ if (mq.matches) {
     textsize = 13
     dark = 25
     fps = 2
-    speedInc = 14
+    speedInc = 12
 	alert('small')
 } else if (mq2.matches) {
     paddingX = 10
@@ -447,12 +447,12 @@ function drawImage(png) {
                 if (this.x !== this.baseX) {
 
                     let dx = this.x - this.baseX;
-                    this.x -= dx / 1.5
+                    this.x -= dx / 1.2
                 }
                 if (this.y !== this.baseY) {
 
                     let dy = this.y - this.baseY;
-                    this.y -= dy / 1.5
+                    this.y -= dy / 1.2
                 }
 
 
@@ -776,7 +776,7 @@ function drawImage(png) {
             particles.forEach(particle => {
                 particle.update()
             });
-            if (speed > 820 && speed < 823) {
+            if (speed > 820 && speed < 845) {
                 intro.style.display = "none";
             }
             if (speed > 840 && speed < 920) {
