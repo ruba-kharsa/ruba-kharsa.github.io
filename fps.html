@@ -318,7 +318,7 @@ var txt =
 تدفعنا الجراح إذ تَشفى 
 تبهجنا الخيام إذ تُطوى 
 يدًا بيد لنحقق أحلام من رحلوا `
-var time = 85
+var time = 80
 var cursor = "<span class='cursor cursorAnimation'>|</span>"
 
 function typeWriter() {
@@ -329,11 +329,11 @@ function typeWriter() {
         if (txt.charAt(index) == '\n') {
             setTimeout(typeWriter, 700);
             i = 0
-            time = 85
+            time = 80
             setTimeout(function() {
                 intro.innerHTML = intro.innerHTML.replace(/(<span class="cursor cursorAnimation">[|]<\/span>)/ig, "");
 
-            }, 1000)
+            }, 900)
 
         } else {
             if (index != txt.length - 1) {
